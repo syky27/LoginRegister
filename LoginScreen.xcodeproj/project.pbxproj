@@ -11,6 +11,8 @@
 		3551148E1DCEC046006C23A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3551148D1DCEC046006C23A0 /* ViewController.swift */; };
 		355114931DCEC046006C23A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 355114921DCEC046006C23A0 /* Assets.xcassets */; };
 		355114961DCEC046006C23A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 355114941DCEC046006C23A0 /* LaunchScreen.storyboard */; };
+		35A192751DCFA56C00368E55 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 35A192741DCFA53700368E55 /* FontAwesome.otf */; };
+		44A7B5DB8868074FEE040F97 /* Pods_LoginScreen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97E967833B400F9DF7328E6 /* Pods_LoginScreen.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,10 @@
 		355114921DCEC046006C23A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		355114951DCEC046006C23A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		355114971DCEC046006C23A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35A192741DCFA53700368E55 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = ../../../Downloads/FontAwesome.otf; sourceTree = "<group>"; };
+		582532B9C4B80F5E62ED4124 /* Pods-LoginScreen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginScreen.release.xcconfig"; path = "Pods/Target Support Files/Pods-LoginScreen/Pods-LoginScreen.release.xcconfig"; sourceTree = "<group>"; };
+		AB5917D1D273CE12A9BC5B56 /* Pods-LoginScreen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginScreen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LoginScreen/Pods-LoginScreen.debug.xcconfig"; sourceTree = "<group>"; };
+		D97E967833B400F9DF7328E6 /* Pods_LoginScreen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginScreen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A7B5DB8868074FEE040F97 /* Pods_LoginScreen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +45,8 @@
 			children = (
 				3551148A1DCEC046006C23A0 /* LoginScreen */,
 				355114891DCEC046006C23A0 /* Products */,
+				7DAA2C01B3817FCC83299122 /* Pods */,
+				7509C3AB9BA15F6B83E6352C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +61,7 @@
 		3551148A1DCEC046006C23A0 /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
+				35A192741DCFA53700368E55 /* FontAwesome.otf */,
 				3551148B1DCEC046006C23A0 /* AppDelegate.swift */,
 				3551148D1DCEC046006C23A0 /* ViewController.swift */,
 				355114921DCEC046006C23A0 /* Assets.xcassets */,
@@ -61,6 +71,23 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
+		7509C3AB9BA15F6B83E6352C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D97E967833B400F9DF7328E6 /* Pods_LoginScreen.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DAA2C01B3817FCC83299122 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB5917D1D273CE12A9BC5B56 /* Pods-LoginScreen.debug.xcconfig */,
+				582532B9C4B80F5E62ED4124 /* Pods-LoginScreen.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -68,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3551149A1DCEC046006C23A0 /* Build configuration list for PBXNativeTarget "LoginScreen" */;
 			buildPhases = (
+				8AC3FF2545C6F587492BC5AA /* [CP] Check Pods Manifest.lock */,
 				355114841DCEC046006C23A0 /* Sources */,
 				355114851DCEC046006C23A0 /* Frameworks */,
 				355114861DCEC046006C23A0 /* Resources */,
+				50843C440F7FBCB72EC7E624 /* [CP] Embed Pods Frameworks */,
+				D63150CCC236C9AFF27FB94E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -123,10 +153,59 @@
 			files = (
 				355114961DCEC046006C23A0 /* LaunchScreen.storyboard in Resources */,
 				355114931DCEC046006C23A0 /* Assets.xcassets in Resources */,
+				35A192751DCFA56C00368E55 /* FontAwesome.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50843C440F7FBCB72EC7E624 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LoginScreen/Pods-LoginScreen-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8AC3FF2545C6F587492BC5AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D63150CCC236C9AFF27FB94E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LoginScreen/Pods-LoginScreen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		355114841DCEC046006C23A0 /* Sources */ = {
@@ -245,6 +324,7 @@
 		};
 		3551149B1DCEC046006C23A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB5917D1D273CE12A9BC5B56 /* Pods-LoginScreen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CDMJRT8WJB;
@@ -259,6 +339,7 @@
 		};
 		3551149C1DCEC046006C23A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 582532B9C4B80F5E62ED4124 /* Pods-LoginScreen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CDMJRT8WJB;
@@ -290,6 +371,7 @@
 				3551149C1DCEC046006C23A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

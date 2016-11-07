@@ -19,7 +19,8 @@ class ViewController: UIViewController {
 
 	var loginSelected = NSLayoutConstraint()
 	var registerSelected = NSLayoutConstraint()
-	var horizontalConstraint = NSLayoutConstraint()
+	var loginHorizontalConstraint = NSLayoutConstraint()
+	var registerHorizontalConstraint = NSLayoutConstraint()
 
 	let imageViewLogin = UIImageView(image: #imageLiteral(resourceName: "optify"))
 	let imageViewRegister = UIImageView(image: #imageLiteral(resourceName: "newbie"))
@@ -55,25 +56,21 @@ class ViewController: UIViewController {
 
 
 	func keyboardWillShow(notification: NSNotification) {
-		UIView.animate(withDuration: 1.0, animations: { _ in
-			NSLayoutConstraint.activate([self.horizontalConstraint])
+		if !self.loginHorizontalConstraint.isActive {
+			NSLayoutConstraint.activate([self.loginHorizontalConstraint, self.registerHorizontalConstraint])
 			self.view.layoutIfNeeded()
-		}, completion: nil)
+		}
 	}
 
 	func keyboardWillHide(notification: NSNotification) {
-		UIView.animate(withDuration: 1.0, animations: { _ in
-			NSLayoutConstraint.deactivate([self.horizontalConstraint])
+		if self.loginHorizontalConstraint.isActive {
+			NSLayoutConstraint.deactivate([self.loginHorizontalConstraint, self.registerHorizontalConstraint])
 			self.view.layoutIfNeeded()
-		}, completion: { _ in
-
-			})
-
+		}
+		
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
+	func setNotifications() {
 		NotificationCenter.default.addObserver(self,
 		                                       selector: #selector(ViewController.keyboardWillShow),
 		                                       name: NSNotification.Name.UIKeyboardWillShow,
@@ -83,7 +80,9 @@ class ViewController: UIViewController {
 		                                       selector: #selector(ViewController.keyboardWillHide),
 		                                       name: NSNotification.Name.UIKeyboardWillHide,
 		                                       object: nil)
+	}
 
+	func setBlur() {
 		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
 		let blurEffectView = UIVisualEffectView(effect: blurEffect)
 		blurEffectView.frame = view.bounds
@@ -92,12 +91,20 @@ class ViewController: UIViewController {
 		view.addSubview(blurEffectView)
 
 		view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "glasses"))
+	}
 
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		setNotifications()
+		setBlur()
 		addSubviews()
 		setGestureRecognizers()
 
 		loginLabel.text = "LOGIN"
+		loginLabel.textColor = .white
 		registerLabel.text = "REGISTER"
+		registerLabel.textColor = .white
 		registerLabel.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
 
 		loginView.backgroundColor = UIColor(red: (64/255.0), green: (54/255.0), blue: (105/255.0), alpha: 0.6)
@@ -109,6 +116,12 @@ class ViewController: UIViewController {
 		registerUsername.setOptify(type: .username)
 		registerPassword.setOptify(type: .password)
 
+
+		loginUsername.delegate = self
+		loginPassword.delegate = self
+
+		registerUsername.delegate = self
+		registerPassword.delegate = self
 
 
 		loginView.addSubview(imageViewLogin)
@@ -122,14 +135,12 @@ class ViewController: UIViewController {
 		registerView.addSubview(registerButton)
 
 
-		imageViewLogin.translatesAutoresizingMaskIntoConstraints = false
-		imageViewLogin.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-		imageViewLogin.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
-		imageViewLogin.widthAnchor.constraint(equalTo: imageViewLogin.heightAnchor).isActive = true
+
+
 
 
 		imageViewRegister.translatesAutoresizingMaskIntoConstraints = false
-		imageViewRegister.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+		imageViewRegister.topAnchor.constraint(equalTo: registerView.topAnchor, constant: 20).isActive = true
 		imageViewRegister.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
 		imageViewRegister.widthAnchor.constraint(equalTo: imageViewRegister.heightAnchor).isActive = true
 
@@ -179,22 +190,34 @@ class ViewController: UIViewController {
 		registerButton.alpha = 0
 		registerButton.isEnabled = false
 
+		imageViewLogin.translatesAutoresizingMaskIntoConstraints = false
+		imageViewLogin.topAnchor.constraint(equalTo: loginView.topAnchor, constant: 20).isActive = true
+		imageViewLogin.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
+		imageViewLogin.widthAnchor.constraint(equalTo: imageViewLogin.heightAnchor).isActive = true
+		let imageSize = imageViewLogin.heightAnchor.constraint(equalToConstant: 150)
+		imageSize.priority = 999
 
+		NSLayoutConstraint.activate([imageSize])
 
-	}
-
-	override func viewDidLayoutSubviews() {
 		loginButton.setOptify()
 		loginButton.topAnchor.constraint(equalTo: loginPassword.bottomAnchor, constant: 35).isActive = true
 		loginButton.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
-
-		//warning: rewrite to dnamic
-		self.horizontalConstraint =  loginButton.bottomAnchor.constraint(lessThanOrEqualTo: loginView.centerYAnchor)
 
 		registerButton.setOptify()
 		registerButton.topAnchor.constraint(equalTo: registerPassword.bottomAnchor, constant: 35).isActive = true
 		registerButton.centerXAnchor.constraint(equalTo: registerView.centerXAnchor).isActive = true
 
+		self.loginHorizontalConstraint =  loginButton.bottomAnchor.constraint(lessThanOrEqualTo: loginView.centerYAnchor)
+		self.registerHorizontalConstraint =  registerButton.bottomAnchor.constraint(lessThanOrEqualTo: registerView.centerYAnchor)
+
+
+
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.loginButton.addBorder(side: .Bottom, color: .white, width: 2.0)
+		self.registerButton.addBorder(side: .Bottom, color: .white, width: 2.0)
 
 	}
 
@@ -220,7 +243,7 @@ class ViewController: UIViewController {
 			self.loginLabel.alpha = 0
 		}
 
-		UIView.animate(withDuration: 0.75, animations: { _ in
+		UIView.animate(withDuration: 0.5, animations: { _ in
 			if self.loginSelected.isActive {
 				NSLayoutConstraint.deactivate([self.loginSelected])
 				NSLayoutConstraint.activate([self.registerSelected])
@@ -300,6 +323,7 @@ extension SkyFloatingLabelTextFieldWithIcon {
 			break
 		}
 
+
 		iconFont = UIFont(name: "FontAwesome", size: 15)
 		selectedIconColor = UIColor.white.withAlphaComponent(0.7)
 		selectedTitleColor = UIColor.white.withAlphaComponent(0.7)
@@ -318,12 +342,10 @@ public enum UIButtonBorderSide {
 
 extension UIButton {
 	func setOptify() {
-	translatesAutoresizingMaskIntoConstraints = false
-	heightAnchor.constraint(equalToConstant: 28).isActive = true
-	widthAnchor.constraint(equalToConstant: 150).isActive = true
-	setTitle("LOGIN", for: .normal)
-	addBorder(side: .Bottom, color: .white, width: 2.0)
-
+		translatesAutoresizingMaskIntoConstraints = false
+		heightAnchor.constraint(equalToConstant: 28).isActive = true
+		widthAnchor.constraint(equalToConstant: 150).isActive = true
+		setTitle("LOGIN", for: .normal)
 	}
 }
 
@@ -346,4 +368,25 @@ extension UIButton {
 
 		self.layer.addSublayer(border)
 	}
+}
+
+extension ViewController : UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		if textField == loginUsername {
+			_ = loginPassword.becomeFirstResponder()
+		} else if textField == loginPassword {
+			_ = loginPassword.resignFirstResponder()
+		} else if textField == registerPassword {
+			_ = registerPassword.resignFirstResponder()
+		} else if textField == registerUsername {
+			_ = registerUsername.becomeFirstResponder()
+		}
+
+
+
+
+
+		return true
+	}
+
 }

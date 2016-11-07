@@ -19,6 +19,7 @@ class ViewController: UIViewController {
 
 	var loginSelected = NSLayoutConstraint()
 	var registerSelected = NSLayoutConstraint()
+	var horizontalConstraint = NSLayoutConstraint()
 
 	let imageViewLogin = UIImageView(image: #imageLiteral(resourceName: "optify"))
 	let imageViewRegister = UIImageView(image: #imageLiteral(resourceName: "newbie"))
@@ -53,35 +54,35 @@ class ViewController: UIViewController {
 	}
 
 
-// func keyboardWillShow(notification: NSNotification) {
-//
-//
-//	view.frame =  CGRect(x: view.frame.origin.x , y: view.frame.origin.y , width: self.view.frame.width, height: self.view.frame.height * 0.5)
-//	self.view.layoutIfNeeded()
-//
-//
-//	}
-//
-//	func keyboardWillHide(notification: NSNotification) {
-//		if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//			if self.view.frame.origin.y != 0{
-//				self.view.frame.origin.y += keyboardSize.height
-//			}
-//		}
-//	}
+	func keyboardWillShow(notification: NSNotification) {
+		UIView.animate(withDuration: 1.0, animations: { _ in
+			NSLayoutConstraint.activate([self.horizontalConstraint])
+			self.view.layoutIfNeeded()
+		}, completion: nil)
+	}
+
+	func keyboardWillHide(notification: NSNotification) {
+		UIView.animate(withDuration: 1.0, animations: { _ in
+			NSLayoutConstraint.deactivate([self.horizontalConstraint])
+			self.view.layoutIfNeeded()
+		}, completion: { _ in
+
+			})
+
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-//		NotificationCenter.default.addObserver(self,
-//		                                       selector: #selector(ViewController.keyboardWillShow),
-//		                                       name: NSNotification.Name.UIKeyboardWillShow,
-//		                                       object: nil)
-//
-//		NotificationCenter.default.addObserver(self,
-//		                                       selector: #selector(ViewController.keyboardWillHide),
-//		                                       name: NSNotification.Name.UIKeyboardWillHide,
-//		                                       object: nil)
+		NotificationCenter.default.addObserver(self,
+		                                       selector: #selector(ViewController.keyboardWillShow),
+		                                       name: NSNotification.Name.UIKeyboardWillShow,
+		                                       object: nil)
+
+		NotificationCenter.default.addObserver(self,
+		                                       selector: #selector(ViewController.keyboardWillHide),
+		                                       name: NSNotification.Name.UIKeyboardWillHide,
+		                                       object: nil)
 
 		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
 		let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -149,11 +150,6 @@ class ViewController: UIViewController {
 
 
 
-
-
-
-
-
 		loginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		loginView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		loginView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -193,7 +189,7 @@ class ViewController: UIViewController {
 		loginButton.centerXAnchor.constraint(equalTo: loginView.centerXAnchor).isActive = true
 
 		//warning: rewrite to dnamic
-		loginButton.bottomAnchor.constraint(lessThanOrEqualTo: loginView.centerYAnchor).isActive = true
+		self.horizontalConstraint =  loginButton.bottomAnchor.constraint(lessThanOrEqualTo: loginView.centerYAnchor)
 
 		registerButton.setOptify()
 		registerButton.topAnchor.constraint(equalTo: registerPassword.bottomAnchor, constant: 35).isActive = true
